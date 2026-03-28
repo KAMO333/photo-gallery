@@ -20,8 +20,9 @@ function App() {
   return (
     <div className="App min-h-screen">
       <Title darkMode={darkMode} setDarkMode={setDarkMode} />
-
-      <main className="pb-20">
+      <main className="pb-20 mt-2">
+        {" "}
+        {/* mt-2 pulls the grid closer to the title */}
         <UploadForm />
         <ImageGrid setSelectedImg={setSelectedImg} />
       </main>
