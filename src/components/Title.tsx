@@ -1,0 +1,51 @@
+import React, { useState, useEffect } from "react";
+import { motion } from "framer-motion";
+
+const Title: React.FC = () => {
+  const [darkMode, setDarkMode] = useState(true);
+  const MotionH1 = motion.h1 as any;
+  const MotionButton = motion.button as any;
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
+  return (
+    // Reduced pt-32 to pt-12 to close the gap at the top
+    <header className="relative pt-12 pb-16 px-8 max-w-7xl mx-auto">
+      <div className="flex flex-col items-start relative">
+        {/* Toggle Button: Now positioned relative to the H1 container */}
+        <div className="absolute top-2 right-0 md:right-10">
+          <MotionButton
+            whileHover={{ scale: 1.1, rotate: 10 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={() => setDarkMode(!darkMode)}
+            className="w-12 h-12 rounded-2xl bg-gray-100 dark:bg-white/10 flex items-center justify-center text-xl shadow-sm transition-colors border border-transparent dark:border-white/5"
+          >
+            {darkMode ? "☀️" : "🌙"}
+          </MotionButton>
+        </div>
+
+        <MotionH1
+          initial={{ x: -30, opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="text-6xl md:text-8xl font-black tracking-tighter leading-none"
+        >
+          The
+          <br />
+          Collection<span className="text-blue-500">.</span>
+        </MotionH1>
+
+        <div className="mt-8 flex items-center gap-4">
+          <div className="h-[2px] w-8 bg-blue-500"></div>
+          <p className="text-gray-400 dark:text-gray-500 text-[10px] font-bold tracking-[0.3em] uppercase">
+            Curated Archive / 2026
+          </p>
+        </div>
+      </div>
+    </header>
+  );
+};
+
+export default Title;
