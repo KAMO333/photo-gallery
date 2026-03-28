@@ -19,11 +19,13 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ file, setFile }) => {
         const interval = setInterval(() => {
           setProgress((prev) => (prev < 90 ? prev + 10 : prev));
         }, 200);
-
-        const response = await fetch("http://localhost:5000/api/upload", {
-          method: "POST",
-          body: formData,
-        });
+        const response = await fetch(
+          "http://localhost:5000/api/images/upload",
+          {
+            method: "POST",
+            body: formData,
+          },
+        );
 
         if (response.ok) {
           clearInterval(interval);

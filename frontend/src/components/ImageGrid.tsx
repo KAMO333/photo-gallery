@@ -71,7 +71,8 @@ const ImageGrid: React.FC<ImageGridProps> = ({ setSelectedImg }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 px-8 max-w-7xl mx-auto mb-40">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pl-2 pr-8 max-w-6xl mx-auto lg:ml-20 xl:ml-32 mb-40">
+        {" "}
         {docs &&
           docs.map((doc) => (
             <MotionDiv

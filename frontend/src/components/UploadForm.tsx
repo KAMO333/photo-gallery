@@ -1,8 +1,8 @@
 import React, { useState, ChangeEvent } from "react";
 import { motion } from "framer-motion";
 import axios from "axios";
-// --- 1. Import useGallery hook ---
 import useGallery from "../hooks/useGallery";
+import { UPLOAD_URL } from "../api/config";
 
 const UploadForm: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -28,7 +28,7 @@ const UploadForm: React.FC = () => {
 
       setIsUploading(true);
       try {
-        await axios.post("http://localhost:5000/api/upload", formData, {
+        await axios.post(UPLOAD_URL, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },
