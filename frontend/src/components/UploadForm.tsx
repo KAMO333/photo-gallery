@@ -5,7 +5,7 @@ import useGallery from "../hooks/useGallery";
 import { UPLOAD_URL } from "../api/config";
 
 const UploadForm: React.FC = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [, setFile] = useState<File | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
 
