@@ -11,15 +11,15 @@ const Title: React.FC<TitleProps> = ({ darkMode, setDarkMode }) => {
   const MotionButton = motion.button as any;
 
   return (
-    // CHANGE: Added px-6 for mobile, kept pr-8 and alignment for desktop
-    // removed pl-2 to let px-6 handle the left side consistently
-    <header className="relative pt-0 pb-4 px-6 pr-8 max-w-6xl mx-auto lg:ml-20 xl:ml-32">
+    /* FIX: Changed px-6 to mx-6 for mobile margins.
+       We keep lg:mx-auto and the lg:ml/xl:ml for desktop positioning.
+    */
+    <header className="relative pt-0 pb-4 mx-6 pr-0 max-w-6xl lg:mx-auto lg:ml-20 xl:ml-32">
       <div className="flex flex-col items-start relative">
-        {/* Toggle Button Position */}
-        {/* Added right-6 to match the px-6 padding of the container */}
+        {/* Toggle Button: Positioned right-0 relative to the mx-6 container */}
         <div className="absolute top-10 right-0">
           <MotionButton
-            // ... whileHover and whileTap ...
+            // ... button props ...
             onClick={() => setDarkMode(!darkMode)}
             className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/10 flex items-center justify-center text-lg shadow-sm transition-colors border border-transparent dark:border-white/5"
           >
@@ -29,7 +29,7 @@ const Title: React.FC<TitleProps> = ({ darkMode, setDarkMode }) => {
 
         {/* Main Title */}
         <MotionH1
-          // ... initial and animate ...
+          // ... animation props ...
           className="text-5xl md:text-7xl font-black tracking-tighter leading-[0.8] uppercase mt-10"
         >
           The
