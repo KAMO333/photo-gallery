@@ -13,25 +13,31 @@ const ImageGrid: React.FC<ImageGridProps> = ({ setSelectedImg }) => {
 
   const [showUndo, setShowUndo] = useState(false);
   const [lastDeletedId, setLastDeletedId] = useState<number | null>(null);
-  const [deletionTimer, setDeletionTimer] = useState<NodeJS.Timeout | null>(
-    null,
-  );
+  // const [deletionTimer, setDeletionTimer] = useState<NodeJS.Timeout | null>(
+  //   null,
+  // );
+
+  const [deletionTimer, setDeletionTimer] = useState<any>(null);
 
   const prepareDelete = (id: number) => {
-    if (deletionTimer) {
-      executeDelete(lastDeletedId!);
+    // If there's already a pending delete for another image,
+    // we execute it immediately before starting this new one.
+    if (deletionTimer && lastDeletedId !== null) {
+      executeDelete(lastDeletedId);
+      clearTimeout(deletionTimer);
     }
 
-    // Tell the hook to hide this image and ignore it during polls
     markAsDeleting(id);
-
     setLastDeletedId(id);
     setShowUndo(true);
 
     const timer = setTimeout(() => {
+      // FIX: Use 'id' directly from the function argument instead of 'lastDeletedId'
+      // This ensures even if state changes, the correct number is sent.
       executeDelete(id);
       setShowUndo(false);
       setLastDeletedId(null);
+      setDeletionTimer(null);
     }, 5000);
 
     setDeletionTimer(timer);

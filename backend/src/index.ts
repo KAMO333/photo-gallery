@@ -84,6 +84,10 @@ app.delete(
   async (req: Request, res: Response): Promise<any> => {
     const { id } = req.params;
 
+    if (!id || id === "null" || isNaN(Number(id))) {
+      return res.status(400).json({ error: "Invalid ID provided" });
+    }
+
     try {
       // 1. Get the public_id from DB first
       const imageResult = await pool.query(
