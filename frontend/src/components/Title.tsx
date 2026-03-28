@@ -11,12 +11,15 @@ const Title: React.FC<TitleProps> = ({ darkMode, setDarkMode }) => {
   const MotionButton = motion.button as any;
 
   return (
-    /* FIX: Changed px-6 to mx-6 for mobile margins.
-       We keep lg:mx-auto and the lg:ml/xl:ml for desktop positioning.
+    /* FIX: 
+       1. ml-10: Pushes it 40px from the left on mobile.
+       2. mr-6: Keeps a small gap on the right for the toggle button.
+       3. lg:ml-20: Restores your preferred desktop deep-indent.
+       4. w-auto: Ensures it doesn't try to fill the whole screen width.
     */
-    <header className="relative pt-0 pb-4 mx-6 pr-0 max-w-6xl lg:mx-auto lg:ml-20 xl:ml-32">
+    <header className="relative pt-0 pb-4 ml-10 mr-6 w-auto lg:ml-20 xl:ml-32 max-w-6xl">
       <div className="flex flex-col items-start relative">
-        {/* Toggle Button: Positioned right-0 relative to the mx-6 container */}
+        {/* Toggle Button: Positioned absolute right-0 of the header container */}
         <div className="absolute top-10 right-0">
           <MotionButton
             // ... button props ...
