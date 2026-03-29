@@ -6,22 +6,22 @@
 
 :root {
   --bg: #ffffff;
-  --fg: #000000;
-  --accent: #3b82f6; /* Clean Blue */
+  --fg: #09090b; /* Slightly softer black for better typography */
 }
 
 .dark {
-  --bg: #0a0a0a;
-  --fg: #ffffff;
+  --bg: #09090b; /* Matches the "Zinc-950" look */
+  --fg: #fafafa;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: "Inter", sans-serif;
+  /* Keep the transition, but we'll make sure the navbar respects it */
   transition:
-    background-color 0.4s ease,
-    color 0.4s ease;
+    background-color 0.3s ease,
+    color 0.3s ease;
   -webkit-font-smoothing: antialiased;
 }
 
