@@ -18,43 +18,65 @@ const ImageGrid: React.FC<ImageGridProps> = ({ setSelectedImg }) => {
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pl-2 pr-8 max-w-6xl mx-auto lg:ml-20 xl:ml-32">
-        {docs.map((doc) => (
-          <MotionDiv
-            key={doc.id}
-            layout
-            whileHover={{ scale: 1.02 }}
-            className="relative aspect-square overflow-hidden rounded-[2.5rem] bg-neutral-900 cursor-pointer group"
-            onClick={() => setSelectedImg(doc.url)}
-          >
-            <img
-              src={doc.url}
-              alt="art"
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-            />
+      {/* 1. CHECK FOR EMPTY STATE FIRST */}
+      {docs.length === 0 && (
+        <MotionDiv /* <--- CHANGED THIS TO MotionDiv */
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="flex flex-col items-center justify-center py-40 px-6 text-center"
+        >
+          <div className="w-16 h-16 mb-6 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center text-2xl">
+            🖼️
+          </div>
+          <h3 className="text-xl font-bold tracking-tight text-[var(--fg)]">
+            Your archive is empty
+          </h3>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 max-w-xs">
+            Start your collection by clicking the "Add Piece" button below to
+            upload your first artwork.
+          </p>
+        </MotionDiv>
+      )}
 
-            {/* Delete Button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeleteClick(doc.id);
-              }}
-              className="absolute top-6 left-6 w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-30"
+      {/* 2. ONLY RENDER GRID IF THERE ARE IMAGES */}
+      {docs.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pl-2 pr-8 max-w-6xl mx-auto lg:ml-20 xl:ml-32">
+          {docs.map((doc) => (
+            <MotionDiv
+              key={doc.id}
+              layout
+              whileHover={{ scale: 1.02 }}
+              className="relative aspect-square overflow-hidden rounded-[2.5rem] bg-neutral-900 cursor-pointer group"
+              onClick={() => setSelectedImg(doc.url)}
             >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
+              <img
+                src={doc.url}
+                alt="art"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              />
+
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleDeleteClick(doc.id);
+                }}
+                className="absolute top-6 left-6 w-10 h-10 rounded-full bg-red-500/10 hover:bg-red-500 text-red-500 hover:text-white backdrop-blur-md flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all z-30"
               >
-                <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-              </svg>
-            </button>
-          </MotionDiv>
-        ))}
-      </div>
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                </svg>
+              </button>
+            </MotionDiv>
+          ))}
+        </div>
+      )}
 
       <AnimatePresence>
         {activeDeleteId && (
